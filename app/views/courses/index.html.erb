@@ -1,0 +1,38 @@
+<% teacher_access = current_user.user_role == 'teacher' ? true : false %>
+
+<div class="container">
+  <div class="d-flex justify-content-between py-3">
+    <div>
+      <% if teacher_access %>
+        <%= link_to 'New Course', new_course_path, class: 'btn btn-success' %>
+        <%= link_to 'My Courses', user_courses_path(current_user.id), class: 'btn btn-success' %>
+      <% else %>
+        <%= link_to 'My Scores', user_scores_path, class: 'btn btn-info' %>
+        <%= link_to 'My Courses', user_courses_path(current_user.id), class: 'btn btn-success' %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-dark', data: { confirm: 'Are u sure?F'} %>
+    </div>
+  </div>
+
+
+  <% @courses.map do |course| %>
+
+    <div class="card" style="">
+      <div class="card-body">
+        <h5 class="card-title"><%= course.title %></h5>
+        <p class="card-text"><%= course.description %></p>
+
+        <% if teacher_access %>
+          <%= link_to 'Students List', course_students_path(course.id), class: 'btn btn-primary' %>
+        <% end %>
+
+        <%= link_to 'Show Course', course_path(course.id), class: 'btn btn-info' %>
+      </div>
+    </div>
+
+  <% end %>
+</div>
+

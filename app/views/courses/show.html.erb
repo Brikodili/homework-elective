@@ -1,0 +1,42 @@
+<% teacher_access = current_user.user_role == 'teacher' ? true : false %>
+
+<div class="jumbotron p-5">
+  <div class="d-flex justify-content-between">
+    <div>
+      <%= link_to 'Back to all courses', courses_path %>
+    </div>
+
+    <div>
+      <p><b>Start date:</b> <%= @course.start_date || 'not known yet' %></p>
+      <p><b>Finish date:</b> <%= @course.finish_date || 'not known yet' %></p>
+    </div>
+  </div>
+
+  <h1 class="display-5">
+    Course name:
+    <%= @course.title %>
+  </h1>
+  <p class="lead">
+    Course description:
+    <%= @course.description %>
+  </p>
+  <hr class="my-4">
+
+  <% if teacher_access %>
+    <div>
+      <%= link_to 'Students List', course_students_path(@course.id), class: 'btn btn-primary' %>
+      <%= link_to 'Delete course', course_path(@course), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+      <%#= link_to 'Edit course', edit_course_path(@course), class: 'btn btn-secondary' %>
+    </div>
+  <% else %>
+    <div>
+      <% if @course.users.include?(current_user) %>
+        <%= link_to 'Show my score', course_user_scores_path(@course.id), class: 'btn btn-info' %>
+      <% else %>
+        <%= link_to 'Join the course', course_attendance_path(@course), method: :post, class: 'btn btn-info', data: {confirm: 'Are u sure?'} %>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>
+

@@ -1,0 +1,13 @@
+<% @courses.map do |course| %>
+
+  <div class="card" style="">
+    <div class="card-body">
+      <h5 class="card-title"><%= course.title %></h5>
+      <p>Status: <%= course.activity_status ? 'Active' : 'Finished' %> </p>
+      <p class="card-text"><%= course.description %></p>
+
+      <%= link_to 'Show Course', course_path(course.id), class: 'btn btn-info' %>
+    </div>
+  </div>
+
+<% end %>

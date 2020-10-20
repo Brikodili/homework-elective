@@ -1,0 +1,34 @@
+<%= link_to 'Back', :back, class: 'p-4' %>
+
+<div class="container">
+  <h3 class="text-center mb-4">New score</h3>
+  <%= form_with scope: :user_score,  url: user_scores_path, local: true do |f| %>
+    <% if  flash[:course_errors]  %>
+      <div id="error_explanation">
+        <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+        <ul>
+          <% flash[:quote_errors].each do |message| %>
+            <li class="alert alert-warning"><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.hidden_field(:course_id, :value => params[:course_id]) %>
+
+    <div class="form-group">
+      <%= f.label :user_id %>
+      <%= f.collection_select :user_id, @users, :id, :name_with_initial, {prompt: true}, {class: 'form-control'} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :score %>
+      <%= f.text_field :score, class: 'form-control' %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'New score', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

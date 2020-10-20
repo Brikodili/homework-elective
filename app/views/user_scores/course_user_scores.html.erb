@@ -1,0 +1,10 @@
+<% @user_scores.map do |user_score| %>
+  <div class="card">
+    <p><%= user_score.course.title %></p>
+    <p><%= user_score.score %></p>
+    <small><%= user_score.created_at %></small>
+  </div>
+<% end %>
+
+<%= link_to 'Back to course', course_path(params[:course_id]) %>
+

@@ -1,0 +1,48 @@
+<%= link_to 'Back', :back, class: 'p-4' %>
+
+<div class="container">
+  <h3 class="text-center mb-4">New course</h3>
+  <%= form_with scope: :course,  url: courses_path, local: true do |f| %>
+    <% if  flash[:course_errors]  %>
+      <div id="error_explanation">
+        <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+        <ul>
+          <% flash[:quote_errors].each do |message| %>
+            <li class="alert alert-warning"><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_field :description, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date, class: 'form-control-sm' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :finish_date %>
+      <%= f.date_field :finish_date, class: 'form-control-sm' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :teacher_id %>
+      <%= f.collection_select :teacher_id, User.where(role_id: 2), :id, :name_with_initial, {prompt: true}, {class: 'form-control-sm'} %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Create course', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+

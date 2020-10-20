@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <th>Course</th>
+    <th>Score</th>
+  </thead>
+ <tbody>
+ <% @user_scores.each_with_index do |score| %>
+ <tr>
+   <td><%= score.course.title %></td>
+   <td><%= score.score %></td>
+ </tr>
+ <% end %>
+ </tbody>
+</table>
